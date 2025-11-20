@@ -77,7 +77,3 @@ const broadcast = (ws, message, includeSelf) => {
   }, 50000);
 };
 
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
