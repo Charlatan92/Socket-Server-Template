@@ -40,35 +40,31 @@ const inputName = document.getElementById('user-name');
 const inputChoice = document.getElementById('user-choice');
 
 // Fonction pour envoyer les données
+// Fonction pour envoyer les données
 btnSend.addEventListener('click', () => {
     
     // 1. Récupérer les valeurs
     const nameVal = inputName.value; 
     const choiceVal = inputChoice.value;
 
-    // 2. Petit contrôle : on vérifie si le nom n'est pas vide
+    // 2. Petit contrôle (optionnel)
     if (nameVal.trim() === "") {
         alert("Merci d'entrer un nom !");
         return;
     }
 
-    // 3. Créer l'objet JSON pour TouchDesigner
+    // 3. Créer l'objet JSON PLAT (Correction ici)
+    // Cela va créer : {"nom": "Banane", "choix": "option_2"}
     const payload = {
-        action: "user_submit", // Identifiant de l'action pour ton DAT Python
-        userName: nameVal,
-        userChoice: choiceVal
+        nom: nameVal,      // Tu peux renommer "nom" par ce que tu veux (ex: "slider1" si besoin)
+        choix: choiceVal   // Idem pour "choix"
     };
 
-    // 4. Envoyer si la connexion est ouverte
+    // 4. Envoyer
     if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify(payload));
         console.log("Envoyé :", payload);
-        
-        // Optionnel : Feedback visuel ou vider le champ
-        // inputName.value = ""; 
-        // alert("Envoyé !");
     } else {
         console.error("Impossible d'envoyer : WebSocket déconnecté.");
-        alert("Erreur de connexion au serveur.");
     }
 });
