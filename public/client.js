@@ -1,54 +1,74 @@
-// 1. DÉTERMINER L'ADRESSE DU WEBSOCKET
+// ==============================================
+// 1. CONFIGURATION ET CONNEXION
+// ==============================================
 let wsUrl;
 
+// Détection automatique (Local vs Production)
 if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-    // Cas Local : Ton main.js ouvre le socket sur le port 5001 en mode dev
     wsUrl = "ws://localhost:5001";
 } else {
-    // Cas En Ligne (Production) : Le socket utilise le même port que le site (80 ou 443)
-    // On vérifie si on est en sécurisé (https) ou non
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     wsUrl = `${protocol}://${window.location.host}`;
 }
 
-// 2. CONNEXION
 console.log("Tentative de connexion vers :", wsUrl);
 let ws = new WebSocket(wsUrl);
 
-// 3. GESTION DES ÉVÉNEMENTS
+// ==============================================
+// 2. ÉVÉNEMENTS WEBSOCKET
+// ==============================================
+
 ws.addEventListener("open", (event) => {
     console.log("✅ WebSocket connecté !");
 });
 
 ws.addEventListener("message", (event) => {
-    // Si le serveur envoie un "ping" pour garder la connexion, on ne fait rien ou on log
-    if(event.data === 'ping') {
-        console.log("Ping reçu du serveur");
-        // Optionnel : répondre 'pong' si le serveur est strict, 
-        // mais ton main.js gère le keepAlive tout seul côté serveur.
-        return;
-    }
+    if(event.data === 'ping') return; // Ignorer les pings du serveur
     console.log("Message reçu :", event.data);
 });
 
 ws.addEventListener("close", (event) => {
-    console.warn("❌ WebSocket déconnecté");
+    console.warn("❌ WebSocket déconnecté - Rechargement conseillé");
 });
 
-// 4. GESTION DES SLIDERS (Ton code HTML)
-const sliderOut = document.querySelector('.controllTD');
+// ==============================================
+// 3. GESTION DU FORMULAIRE
+// ==============================================
 
-// Quand l'utilisateur bouge le slider, on envoie à TouchDesigner
-if(sliderOut){
-    sliderOut.addEventListener('input', (e) => {
-        const value = e.target.value; // Valeur entre 0 et 100 souvent
-        // On envoie un JSON propre
-        const data = {
-            action: "slider1",
-            val: parseFloat(value) / 100 // On normalise entre 0 et 1 pour TD
-        };
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(data));
-        }
-    });
-}
+const btnSend = document.getElementById('btn-send');
+const inputName = document.getElementById('user-name');
+const inputChoice = document.getElementById('user-choice');
+
+// Fonction pour envoyer les données
+btnSend.addEventListener('click', () => {
+    
+    // 1. Récupérer les valeurs
+    const nameVal = inputName.value; 
+    const choiceVal = inputChoice.value;
+
+    // 2. Petit contrôle : on vérifie si le nom n'est pas vide
+    if (nameVal.trim() === "") {
+        alert("Merci d'entrer un nom !");
+        return;
+    }
+
+    // 3. Créer l'objet JSON pour TouchDesigner
+    const payload = {
+        action: "user_submit", // Identifiant de l'action pour ton DAT Python
+        userName: nameVal,
+        userChoice: choiceVal
+    };
+
+    // 4. Envoyer si la connexion est ouverte
+    if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(payload));
+        console.log("Envoyé :", payload);
+        
+        // Optionnel : Feedback visuel ou vider le champ
+        // inputName.value = ""; 
+        // alert("Envoyé !");
+    } else {
+        console.error("Impossible d'envoyer : WebSocket déconnecté.");
+        alert("Erreur de connexion au serveur.");
+    }
+});

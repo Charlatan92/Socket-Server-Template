@@ -2,15 +2,38 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contrôleur TouchDesigner</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Un peu de style rapide pour que ce soit lisible sur mobile */
+        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; text-align: center; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #333; color: white; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background: #555; }
+    </style>
 </head>
 <body>
 
     <h1>Interface de Contrôle</h1>
-    
-    <button id="btn-trigger">Lancer l'animation</button>
-    <button id="btn-reset">Reset</button>
+
+    <div class="input-group">
+        <label for="user-name">Votre Nom :</label>
+        <input type="text" id="user-name" placeholder="Entrez votre pseudo...">
+    </div>
+
+    <div class="input-group">
+        <label for="user-choice">Choisissez une option :</label>
+        <select id="user-choice">
+            <option value="option_1">Option A (Rouge)</option>
+            <option value="option_2">Option B (Bleu)</option>
+            <option value="option_3">Option C (Vert)</option>
+        </select>
+    </div>
+
+    <button id="btn-send">ENVOYER À TOUCHDESIGNER</button>
 
     <script src="client.js"></script>
 </body>
