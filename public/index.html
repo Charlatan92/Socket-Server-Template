@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contrôleur TouchDesigner</title>
+    <title>Contrôleur TouchDesigner - Amos</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Un peu de style rapide pour que ce soit lisible sur mobile */
-        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; text-align: center; }
-        .input-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #333; color: white; border: none; cursor: pointer; font-size: 16px; }
-        button:hover { background: #555; }
-    </style>
 </head>
 <body>
 
-    <h1>Interface de Contrôle</h1>
+    <div class="main-container">
+        
+        <div class="logo-container">
+            <img src="logo.png" alt="Ville d'Amos" class="logo">
+        </div>
 
-    <div class="input-group">
-        <label for="user-name">Votre Nom :</label>
-        <input type="text" id="user-name" placeholder="Entrez votre nom...">
+        <h1>Interface de Contrôle</h1>
+        <p class="subtitle">Interagissez avec l'installation</p>
+
+        <div class="input-group">
+            <label for="user-name">Votre Nom</label>
+            <input type="text" id="user-name" placeholder="Entrez votre nom...">
+        </div>
+
+        <div class="input-group">
+            <label for="user-choice">Votre contribution</label>
+            <select id="user-choice">
+                <option value="1">1$</option>
+                <option value="2">2$</option>
+                <option value="5">5$</option>
+            </select>
+        </div>
+
+        <button id="btn-send">Contribuer au projet</button>
+
+        <p id="feedback-msg"></p>
     </div>
-
-    <div class="input-group">
-        <label for="user-choice">Choisissez une option :</label>
-        <select id="user-choice">
-            <option value="1">1$</option>
-            <option value="2">2$</option>
-            <option value="5">5$</option>
-        </select>
-    </div>
-
-    <button id="btn-send">Contribuer au projet</button>
-
-    <p id="feedback-msg" style="margin-top: 15px; font-weight: bold; min-height: 20px;"></p>
 
     <script src="client.js"></script>
 </body>

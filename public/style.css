@@ -1,0 +1,155 @@
+/* =========================================
+   VARIABLES & COULEURS (Charte Amos)
+   ========================================= */
+:root {
+    /* Vert Amos (Approximation : Vert forêt) */
+    --amos-green: #009640;
+    /* Bleu Amos (Approximation : Bleu rivière) */
+    --amos-blue: #005DAA;
+    /* Couleurs neutres */
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --text-muted: #666666;
+}
+
+/* =========================================
+   RESET & STRUCTURE GLOBALE
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    background-image: linear-gradient(135deg, #e0eec6 0%, #f4f7f6 100%); /* Léger dégradé subtil */
+    color: var(--text-color);
+    
+    /* MAGIE DU CENTRAGE VERTICAL ET HORIZONTAL */
+    min-height: 100vh; /* Prend toute la hauteur de l'écran */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    padding: 20px;           /* Marge de sécurité pour mobile */
+}
+
+/* =========================================
+   CARTE PRINCIPALE (Le Conteneur)
+   ========================================= */
+.main-container {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 400px; /* Ne dépassera jamais cette largeur sur PC */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    text-align: center;
+    border-top: 5px solid var(--amos-green); /* Petite touche Amos */
+}
+
+/* =========================================
+   LOGO & TITRES
+   ========================================= */
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 150px; /* Taille max du logo */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    color: var(--amos-blue);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+/* =========================================
+   FORMULAIRES
+   ========================================= */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left; /* Les labels restent à gauche pour la lisibilité */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--amos-blue);
+    font-size: 14px;
+}
+
+input[type="text"], 
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background-color: #fafafa;
+}
+
+/* Effet quand on clique dans le champ */
+input[type="text"]:focus, 
+select:focus {
+    border-color: var(--amos-green);
+    outline: none;
+    background-color: #fff;
+}
+
+/* =========================================
+   BOUTON
+   ========================================= */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--amos-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #007a33; /* Un vert un peu plus sombre */
+}
+
+button:active {
+    transform: scale(0.98); /* Petit effet de clic */
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   FEEDBACK MESSAGE
+   ========================================= */
+#feedback-msg {
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 24px;
+    font-size: 14px;
+}
